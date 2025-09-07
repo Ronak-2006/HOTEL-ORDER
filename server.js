@@ -7,14 +7,13 @@ const app = express();
 const PORT = 3000; // or any other port you want
 
 // Connect to MongoDB (change URL if you're using MongoDB Atlas)
-mongoose.connect('mongodb:///datawithaayush_db_user::9eUR1IWWZxlg0eDE/accountsDB', {
+require('dotenv').config(); // Add this at the top if using .env
+
+mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
-}).then(() => {
-  console.log('Connected to MongoDB');
-}).catch(err => {
-  console.error('Failed to connect to MongoDB:', err);
 });
+
 
 // Define a schema
 const accountSchema = new mongoose.Schema({
