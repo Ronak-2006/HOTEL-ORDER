@@ -54,25 +54,43 @@
             <button class="button" type="submit">Create Account</button>
         </form>
         
-        <script>
-            function handleCreateAccount(event) {
-                event.preventDefault();
-                const firstName = document.getElementById('firstName').value;
-                const lastName = document.getElementById('lastName').value;
-                const email = document.getElementById('email').value;
-                const phone = document.getElementById('phone').value;
-                
-                if (firstName && lastName && email && phone.length === 10) {
-                    alert('Account created successfully! Welcome ' + firstName + '!');
-                    window.location.href = 'menu.html';
-                } else {
-                    alert('Please fill all fields correctly. Phone number must be 10 digits.');
-                }
-            }
-        </script>
+       <script>
+    async function handleCreateAccount(event) {
+        event.preventDefault();
+        
+        const firstName = document.getElementById('firstName').value;
+        const lastName = document.getElementById('lastName').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+
+        const response = await fetch('/api/create-account', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                firstName,
+                lastName,
+                email,
+                phone
+            })
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            alert(result.message);
+            window.location.href = 'menu.html';
+        } else {
+            alert('Error: ' + result.error);
+        }
+    }
+</script>
+
         <div class="helper">
             Already have an account? <a class="link" href="index.html">Login</a>
         </div>
     </div>
 </body>
 </html>
+
