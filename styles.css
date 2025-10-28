@@ -9,12 +9,14 @@ html, body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Login Page Styling */
+/* Fix login page proportions */
 body.login {
     display: flex;
     align-items: center;
     justify-content: center;
+    min-height: 100vh;
     background: #f6f7fb;
+    padding: 40px; /* ensures space around card on smaller screens */
     position: relative;
 }
 
@@ -25,69 +27,52 @@ body.login::before {
     background-image: url('https://images.unsplash.com/photo-1543353071-10c8ba85a904?q=80&w=1920&auto=format&fit=crop');
     background-size: cover;
     background-position: center;
-    filter: blur(2px);
+    filter: blur(4px) brightness(0.9);
     transform: scale(1.06);
     z-index: -1;
-    pointer-events: none;
 }
 
+/* Larger login box */
 .container {
-    width: 90%;
-    max-width: 420px;  /* was 360px — increased for better proportions */
-    background: #ffffffcc; /* subtle transparency for modern look */
-    padding: 40px 32px; /* more breathing room inside */
-    border-radius: 16px;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
-    backdrop-filter: blur(6px); /* nice frosted-glass effect */
+    width: 100%;
+    max-width: 500px; /* increased width */
+    background: rgba(255, 255, 255, 0.95);
+    padding: 48px 40px; /* larger padding */
+    border-radius: 20px;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.15);
+    backdrop-filter: blur(8px);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .container:hover {
     transform: translateY(-4px);
-    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
+    box-shadow: 0 20px 48px rgba(0,0,0,0.2);
 }
 
+/* Make title larger and centered */
 .title {
-    margin: 0 0 24px;
-    font-size: 28px; /* slightly larger for better readability */
+    margin: 0 0 32px;
+    font-size: 32px;
     font-weight: 700;
     text-align: center;
-    color: #333;
+    color: #222;
 }
 
-/* Adjust input sizes */
-.input {
-    padding: 14px 16px;
-    font-size: 17px;
-}
-
-/* Make helper text stand out more */
-.helper {
-    margin-top: 20px;
-    text-align: center;
-    font-size: 15px;
-    color: #444;
-}
-
-.title {
-    margin: 0 0 16px;
-    font-size: 24px;
-    text-align: center;
-}
-
-/* Input and Labels */
+/* Inputs — bigger and better spaced */
 .label {
     display: block;
     margin-bottom: 8px;
-    font-size: 14px;
+    font-size: 15px;
+    font-weight: 500;
 }
 
 .input {
     width: 100%;
-    padding: 12px 14px;
-    border: 1px solid #d9d9e3;
-    border-radius: 8px;
-    font-size: 16px;
+    padding: 14px 16px;
+    border: 1px solid #d0d0e3;
+    border-radius: 10px;
+    font-size: 17px;
+    margin-bottom: 20px;
 }
 
 .input:focus {
@@ -96,37 +81,37 @@ body.login::before {
     box-shadow: 0 0 0 3px rgba(106,111,240,0.15);
 }
 
-/* Buttons */
+/* Buttons — larger and more clickable */
 .button {
     width: 100%;
-    margin-top: 16px;
-    padding: 12px 14px;
+    padding: 14px;
+    margin-top: 8px;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     background: #6a6ff0;
-    color: #ffffff;
-    font-size: 16px;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
     cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.button:disabled {
-    background: #b9bdf9;
-    cursor: not-allowed;
+.button:hover {
+    background: #585df0;
+    transform: translateY(-1px);
 }
 
-/* Helper Text */
+/* Helper text */
 .helper {
-    margin-top: 16px;
+    margin-top: 24px;
     text-align: center;
-    font-size: 14px;
+    font-size: 15px;
     color: #555;
 }
-
 .link {
     color: #6a6ff0;
     text-decoration: none;
 }
-
 .link:hover {
     text-decoration: underline;
 }
@@ -316,4 +301,5 @@ body.menu {
     display: inline-block;
     margin-bottom: 8px;
 }
+
 
