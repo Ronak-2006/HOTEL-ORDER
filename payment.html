@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: #f6f7fb;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .payment-container {
+      background: #fff;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      width: 380px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .option {
+      display: flex;
+      align-items: center;
+      margin: 12px 0;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: border 0.2s;
+    }
+    .option:hover {
+      border-color: #6a6ff0;
+    }
+    .option input {
+      margin-right: 12px;
+    }
+    .button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 12px;
+      background: #6a6ff0;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .button:hover {
+      background: #575be7;
+    }
+  </style>
+</head>
+<body>
+  <div class="payment-container">
+    <h2>Select Payment Method</h2>
+
+    <label class="option">
+      <input type="radio" name="payment" value="UPI" checked>
+      UPI (Google Pay / PhonePe / Paytm)
+    </label>
+
+    <label class="option">
+      <input type="radio" name="payment" value="Card">
+      Credit / Debit Card
+    </label>
+
+    <label class="option">
+      <input type="radio" name="payment" value="NetBanking">
+      Net Banking
+    </label>
+
+    <label class="option">
+      <input type="radio" name="payment" value="COD">
+      Cash on Delivery
+    </label>
+
+    <button class="button" onclick="confirmPayment()">Pay & Place Order</button>
+  </div>
+
+  <script>
+    function confirmPayment() {
+      const method = document.querySelector('input[name="payment"]:checked').value;
+
+      // ✅ Get total from cart
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      let total = 0;
+      cart.forEach(item => total += item.price * item.quantity);
+
+      if (cart.length === 0) {
+        alert("Your cart is empty. Please add items before proceeding.");
+        return;
+      }
+
+      // Save order details in localStorage (for tracking page)
+      localStorage.setItem("orderDetails", JSON.stringify({
+        total: total,
+        method: method,
+        items: cart
+      }));
+
+      // Clear cart after placing order
+      localStorage.removeItem("cart");
+
+      alert("Payment method: " + method + " | Amount: ₹" + total + "\nRedirecting to Order Tracking...");
+      window.location.href = "order tracking.html";
+    }
+  </script>
+</body>
+</html>
