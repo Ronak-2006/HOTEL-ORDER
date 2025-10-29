@@ -12,39 +12,35 @@
         <form onsubmit="handleLogin(event)">
             <label class="label" for="mobile">Mobile number</label>
             <input class="input" id="mobile" name="mobile" type="tel" inputmode="numeric" pattern="[0-9]{10}" placeholder="Enter mobile number" required>
-            
             <button class="button" type="submit">Enter</button>
-
             <label class="label" for="order" style="margin-top:16px;">Order number</label>
             <input class="input" id="order" name="order" type="text" placeholder="Enter order number" required>
-            
             <button class="button" type="button" onclick="handleOrderSubmit()">Submit</button>
         </form>
         
-        <div class="helper">
+        <script>
+            function handleLogin(event) {
+                event.preventDefault();
+                const mobile = document.getElementById('mobile').value;
+                if (mobile.length === 10) {
+                    window.location.href = 'menu.html';
+                } else {
+                    alert('Please enter a valid 10-digit mobile number');
+                }
+            }
+            
+            function handleOrderSubmit() {
+                const orderNumber = document.getElementById('order').value;
+                if (orderNumber.trim()) {
+                    window.location.href = 'menu.html';
+                } else {
+                    alert('Please enter an order number');
+                }
+            }
+        </script>
+        <div class="helper">but 
             New here? <a class="link" href="create-account.html">Create account</a>
         </div>
     </div>
-
-    <script>
-        function handleLogin(event) {
-            event.preventDefault();
-            const mobile = document.getElementById('mobile').value;
-            if (mobile.length === 10) {
-                window.location.href = 'menu.html';
-            } else {
-                alert('Please enter a valid 10-digit mobile number');
-            }
-        }
-        
-        function handleOrderSubmit() {
-            const orderNumber = document.getElementById('order').value;
-            if (orderNumber.trim()) {
-                window.location.href = 'menu.html';
-            } else {
-                alert('Please enter an order number');
-            }
-        }
-    </script>
 </body>
 </html>
