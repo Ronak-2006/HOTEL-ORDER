@@ -4,43 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="auth.css">
 </head>
 <body class="login">
     <div class="container">
+        <h2 style="color:#2575fc; margin-bottom: 10px;">Welcome!</h2>
         <h1 class="title">Login</h1>
+
+        <!-- Login Form -->
         <form onsubmit="handleLogin(event)">
-            <label class="label" for="mobile">Mobile number</label>
-            <input class="input" id="mobile" name="mobile" type="tel" inputmode="numeric" pattern="[0-9]{10}" placeholder="Enter mobile number" required>
-            <button class="button" type="submit">Enter</button>
-            <label class="label" for="order" style="margin-top:16px;">Order number</label>
-            <input class="input" id="order" name="order" type="text" placeholder="Enter order number" required>
-            <button class="button" type="button" onclick="handleOrderSubmit()">Submit</button>
+            <label class="label" for="email">Email Address</label>
+            <input class="input" id="email" name="email" type="email" placeholder="Enter your email" required>
+
+            <label class="label" for="password">Password</label>
+            <input class="input" id="password" name="password" type="password" placeholder="Enter your password" required>
+
+            <button class="button" type="submit">Login</button>
         </form>
-        
-        <script>
-            function handleLogin(event) {
-                event.preventDefault();
-                const mobile = document.getElementById('mobile').value;
-                if (mobile.length === 10) {
-                    window.location.href = 'menu.html';
-                } else {
-                    alert('Please enter a valid 10-digit mobile number');
-                }
-            }
-            
-            function handleOrderSubmit() {
-                const orderNumber = document.getElementById('order').value;
-                if (orderNumber.trim()) {
-                    window.location.href = 'menu.html';
-                } else {
-                    alert('Please enter an order number');
-                }
-            }
-        </script>
-        <div class="helper">but 
-            New here? <a class="link" href="create-account.html">Create account</a>
+
+        <!-- First-time visitor helper -->
+        <div class="helper">
+            Visiting for the first time? 
+            <a class="link" href="create account.html">Create account</a>
         </div>
     </div>
+
+    <script src="auth.js"></script>
+    <script>
+        async function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            if (email && password) {
+                try {
+                    const result = await AuthAPI.login({ email, password });
+                    
+                    if (result.message) {
+                        AuthAPI.saveUserToLocalStorage(result.user);
+                        alert("Login successful!");
+                        window.location.href = 'menu.html';
+                    } else {
+                        alert(result.error || "Login failed. Please try again.");
+                    }
+                } catch (error) {
+                    alert("Login failed. Please check your credentials and try again.");
+                }
+            } else {
+                alert('Please fill in all fields correctly.');
+            }
+        }
+
+        // Check if user is already logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUser = AuthAPI.getCurrentUser();
+            if (currentUser) {
+                window.location.href = 'menu.html';
+            }
+        });
+    </script>
 </body>
 </html>
